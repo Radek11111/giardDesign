@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* Headline: Montserrat Medium 60/70, letter-spacing 0% (potwierdzone w Figmie) */
+  /* TODO: sprawdź font dla body text (akapity) - może być inny */
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+
+  --color-cream: #dcc1ab;      /* tło główne strony */
+  --color-offer: #f5f0ec;      /* tło sekcji "oferta" */
+  --color-forest: #1b5b31;     /* przyciski + tło sekcji "o firmie" */
+  --color-forest-light: #256b3c; /* hover na przyciskach */
+  --color-ink: #111111;        /* tekst + tło footera */
+  --color-placeholder: #cfc2b4; /* neutralne tło pod zdjęcia-placeholdery */
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+}
