@@ -8,7 +8,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="oferta" className="max-w-7xl mx-auto px-6 py-16 text-center bg-offer rounded-3xl my-8">
+    <section id="oferta" className="w-full  px-6 py-16 text-center bg-offer  ">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

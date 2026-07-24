@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Logo } from "../assets/logo";
+import giarddesign from "../assets/giarddesign.png";
+import searchIcon from "../assets/searchIcon.png";
+import offerArrow from "../assets/offerArrow.png"; 
 
 const offerItems = [
   { title: "Projekty", desc: "Indywidualne koncepcje ogrodów" },
@@ -9,13 +11,12 @@ const offerItems = [
 ];
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false); // mobile menu
-  const [offerOpen, setOfferOpen] = useState(false); // "Oferta" dropdown
+  const [open, setOpen] = useState(false);
+  const [offerOpen, setOfferOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const searchInputRef = useRef(null);
   const offerRef = useRef(null);
 
-  // Zamknij dropdown "Oferta" po kliknięciu poza nim
   useEffect(() => {
     function handleClick(e) {
       if (offerRef.current && !offerRef.current.contains(e.target)) {
@@ -26,39 +27,26 @@ export default function Navbar() {
     return () => document.removeEventListener("click", handleClick);
   }, []);
 
-  // Autofokus na input po rozwinięciu wyszukiwarki
   useEffect(() => {
     if (searchOpen) searchInputRef.current?.focus();
   }, [searchOpen]);
 
   return (
-    <motion.header
-      initial={{ y: -40, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="sticky top-0 z-50 bg-cream/90 backdrop-blur-sm"
-    >
-      <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
-        <span className="font-semibold text-lg text-forest">
-          <Logo color="#000000" />
-        </span>
-
-        <ul className="hidden md:flex gap-8 text-sm text-ink/80 items-center">
-          <li>Strona główna</li>
-
-          {/* Rozwijana "Oferta" */}
-          <li ref={offerRef} className="relative">
+    <header className="relative z-50 w-full bg-white">
+      <nav className="flex items-center justify-between px-6 py-6 ">
+        <div className="hidden md:flex items-center tracking-tight  text-sm text-ink gap-12">
+          <div ref={offerRef} className="relative">
             <button
               onClick={() => setOfferOpen((v) => !v)}
-              className="flex items-center gap-1 hover:text-forest transition-colors"
+              className="flex items-center gap-1.5 hover:text-forest transition-colors"
             >
               Oferta
               <motion.span
                 animate={{ rotate: offerOpen ? 180 : 0 }}
                 transition={{ duration: 0.2 }}
-                className="text-xs"
+                className=""
               >
-                ▾
+                <img src={offerArrow} alt="arrow" />
               </motion.span>
             </button>
 
@@ -69,7 +57,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 8 }}
                   transition={{ duration: 0.18 }}
-                  className="absolute top-full mt-3 left-1/2 -translate-x-1/2 bg-white rounded-xl shadow-lg p-2 w-56"
+                  className="absolute top-full mt-3 left-0 bg-white rounded-xl shadow-lg p-2 w-56"
                 >
                   {offerItems.map((item) => (
                     <a
@@ -78,58 +66,55 @@ export default function Navbar() {
                       onClick={() => setOfferOpen(false)}
                       className="block px-4 py-2.5 rounded-lg hover:bg-offer transition-colors"
                     >
-                      <p className="text-sm font-medium text-ink">
-                        {item.title}
-                      </p>
-                      <p className="text-xs text-ink/50">{item.desc}</p>
+                      <p className="">{item.title}</p>
+                      <p className="">{item.desc}</p>
                     </a>
                   ))}
                 </motion.div>
               )}
             </AnimatePresence>
-          </li>
+          </div>
 
-          <li className="hover:text-forest transition-colors cursor-pointer">
-            O nas
-          </li>
-          <li className="hover:text-forest transition-colors cursor-pointer">
+          <a href="#o-firmie" className="hover:text-forest transition-colors">
+            O firmie
+          </a>
+          <a href="#realizacje" className="hover:text-forest transition-colors">
             Realizacje
-          </li>
-        </ul>
+          </a>
+          <a href="#kontakt" className="hover:text-forest transition-colors">
+            Kontakt
+          </a>
 
-        <div className="hidden md:flex items-center gap-3">
-          {/* Wysuwana wyszukiwarka */}
           <div className="flex items-center">
+            <button
+              onClick={() => setSearchOpen((v) => !v)}
+              className="p-1 "
+              aria-label="Szukaj"
+            >
+              <img src={searchIcon} alt="" className="w-5 h-5 object-contain" />
+            </button>
             <AnimatePresence>
               {searchOpen && (
                 <motion.input
                   ref={searchInputRef}
                   initial={{ width: 0, opacity: 0 }}
-                  animate={{ width: 200, opacity: 1 }}
+                  animate={{ width: 180, opacity: 1 }}
                   exit={{ width: 0, opacity: 0 }}
                   transition={{ duration: 0.25 }}
                   type="text"
                   placeholder="Szukaj..."
-                  className="bg-white/70 rounded-full px-4 py-2 text-sm outline-none mr-2"
+                  className="bg-offer rounded-full px-4 py-1.5 text-sm outline-none ml-2"
                   onBlur={() => setSearchOpen(false)}
                 />
               )}
             </AnimatePresence>
-            <button
-              onClick={() => setSearchOpen((v) => !v)}
-              className="p-2 rounded-full hover:bg-white/60 transition-colors"
-              aria-label="Szukaj"
-            >
-              🔍
-            </button>
           </div>
-
-          <button className="bg-forest text-white text-sm px-5 py-2 rounded-full hover:bg-forest-light transition-colors">
-            Skontaktuj się
-          </button>
         </div>
 
-        {/* Mobile toggle */}
+        <span className="text-lg tracking-tight">
+          <img src={giarddesign} alt="Giard Design" className="" />
+        </span>
+
         <button
           className="md:hidden flex flex-col gap-1.5 p-2"
           onClick={() => setOpen(!open)}
@@ -154,16 +139,13 @@ export default function Navbar() {
         transition={{ duration: 0.3 }}
         className="md:hidden overflow-hidden"
       >
-        <ul className="flex flex-col gap-4 px-6 pb-6 text-ink/80">
-          <li>Strona główna</li>
+        <ul className="flex flex-col gap-4 px-6 pb-6 text-ink">
           <li>Oferta</li>
-          <li>O nas</li>
+          <li>O firmie</li>
           <li>Realizacje</li>
-          <button className="bg-forest text-white text-sm px-5 py-2 rounded-full w-fit">
-            Skontaktuj się
-          </button>
+          <li>Kontakt</li>
         </ul>
       </motion.div>
-    </motion.header>
+    </header>
   );
 }
