@@ -1,35 +1,49 @@
 import { motion } from "framer-motion";
+import gallery1 from "/gallery/gallery-1.png";
+import vector from "../assets/Vector.png";
 
 export default function PassionBanner() {
   return (
     <section className="relative w-full overflow-hidden bg-forest">
-      <div className="grid md:grid-cols-2 items-center min-h-[420px]">
-        {/* LEWA: wychodzi poza siatkę, przyklejona do lewej krawędzi ekranu */}
-        <div className="relative h-full min-h-[320px] md:min-h-[420px] w-full bg-placeholder overflow-hidden order-2 md:order-1">
+      
+      <div className="grid md:grid-cols-2 items-stretch min-h-[420px]">
+        
+        <div className="relative w-full min-h-[320px] md:min-h-full overflow-hidden order-2 md:order-1">
           <img
-            src="/passion-1.jpg"
+            src={gallery1}
             alt="Realizacja ogrodu"
             className="absolute inset-0 w-full h-full object-cover"
-            onError={(e) => (e.target.style.display = "none")}
           />
         </div>
 
-        {/* PRAWA: trzyma się globalnej siatki */}
+     
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="w-full pr-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] pl-6 md:pl-12 py-16 text-white order-1 md:order-2"
+          className="w-full pr-[max(1.5rem,calc((100vw-72rem)/2+1.5rem))] pl-6 md:pl-16 py-16 text-white order-1 md:order-2 flex flex-col justify-center items-start"
         >
-          <h2 className="text-2xl md:text-3xl font-medium">Twórzymy z pasją</h2>
-          <p className="text-white/70 mt-3 text-sm max-w-sm">
-            {/* TODO: dokładny tekst z Figmy */}
-            Każdy projekt traktujemy indywidualnie — z uwagą na detale i
-            charakter przestrzeni.
+          <p className="text-xs font-medium uppercase tracking-wider text-white/80 mb-3">
+            O firmie
           </p>
-          <button className="mt-6 bg-white text-forest px-5 py-2.5 rounded-full text-sm w-fit hover:bg-cream transition-colors">
-            Zobacz więcej
+
+          <h2 className="text-3xl md:text-4xl font-medium tracking-tight">
+            Tworzymy z <span className="italic">pasją</span>
+          </h2>
+
+          <p className="text-white/80 mt-4 text-sm leading-relaxed max-w-md">
+            Każdy projekt to nowe wyzwanie. Dlatego nasz zespół tworzą
+            wykwalifikowani projektanci oraz architekci, których zadaniem jest
+            rozpoznanie i realizacja potrzeb każdego Klienta. Nasza
+            specjalizacja to przestrzenie nowoczesne, które charakteryzuje
+            minimalizm, geometria i elegancka prostota. Tworzymy ogrody
+            małoobsługowe, dostosowane do współczesnego trybu życia.
+          </p>
+
+          <button className="mt-8 bg-transparent border border-white text-white px-6 py-3 rounded-full text-sm inline-flex items-center gap-2 hover:bg-white hover:text-forest transition-all cursor-pointer">
+            Poznaj nas bliżej
+            <img src={vector} alt="" className="w-3 h-3 object-contain" />
           </button>
         </motion.div>
       </div>

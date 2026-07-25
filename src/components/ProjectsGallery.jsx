@@ -2,10 +2,9 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Masonry from "react-responsive-masonry";
 
-// TODO: podmień na realne zdjęcia z Figmy - dodaj też realne wysokości dla lepszego masonry
 const allProjects = Array.from({ length: 12 }, (_, i) => ({
   id: i,
-  img: `/project-${i + 1}.jpg`,
+  img: `${import.meta.env.BASE_URL}gallery/gallery-${i + 1}.png`,
 }));
 
 const PAGE_SIZE = 6;
