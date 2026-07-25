@@ -36,11 +36,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {/*
-        WAŻNE: zgodnie z wymogami zadania — nie usuwaj stopki z informacją,
-        że projekt powstał w procesie rekrutacyjnym dla adRespect.pl.
-        Sprawdź dokładny wymagany tekst w treści zadania i wklej go dosłownie.
-      */}
+     
       <div className="border-t border-white/10 py-6 text-center text-xs">
         Strona wykonana w procesie rekrutacyjnym dla{" "}
         <a
