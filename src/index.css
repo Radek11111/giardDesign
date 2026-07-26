@@ -13,6 +13,7 @@
   --color-forest-light: #256b3c; /* hover na przyciskach */
   --color-ink: #111111;        /* tekst + tło footera */
   --color-placeholder: #cfc2b4; /* neutralne tło pod zdjęcia-placeholdery */
+  --color-grey-text: #F5F0EC; /*tekst o firmie */
 }
 
 body {

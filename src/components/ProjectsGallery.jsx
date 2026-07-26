@@ -43,7 +43,7 @@ export default function ProjectsGallery() {
   return (
     <section
       id="realizacje"
-      className="relative w-full bg-[#D6B79E] text-ink pt-30 pb-11"
+      className="relative w-full bg-[#D6B79E] text-ink pt-30 pb-11 "
     >
       <div>
         <div className="relative">
@@ -51,8 +51,7 @@ export default function ProjectsGallery() {
             className="overflow-hidden transition-[max-height] duration-700 ease-in-out"
             style={{ maxHeight: expanded ? "none" : `${COLLAPSED_HEIGHT}px` }}
           >
-            
-            <div className="columns-1 sm:columns-2 lg:columns-3 gap-8">
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 ">
               {allProjects.map((p, i) => (
                 <motion.button
                   key={p.id}
@@ -62,7 +61,7 @@ export default function ProjectsGallery() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: (i % 6) * 0.05 }}
-                  className={`block w-full mb-6 overflow-hidden break-inside-avoid ${aspectRatios[i % aspectRatios.length]} hover:opacity-95 transition-opacity cursor-pointer`}
+                  className={`block w-full  mb-6 overflow-hidden break-inside-avoid ${aspectRatios[i % aspectRatios.length]} hover:opacity-95 transition-opacity cursor-pointer`}
                 >
                   <img
                     src={p.img}
