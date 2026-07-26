@@ -1,39 +1,21 @@
-import { AnimatePresence, motion } from "framer-motion";
-import hero1 from "../assets/hero-1.png";
-import gallery1 from "/gallery/gallery-1.png";
-import gallery2 from "/gallery/gallery-2.png";
 import { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { slides } from "../data/hero"
 
-const slides = [
-  {
-    title: ["Nowoczesna", "aranżacja", "Twojego ogrodu"],
-    desc: "Marka GiardDesign to wieloletnie doświadczenie i wysoka estetyka realizacji. Oferujemy kompleksowy zakres usług z indywidualnym podejściem do każdego projektu.",
-    img: hero1,
-  },
-  {
-    title: ["Zielone", "przestrzenie", "szyte na miarę"],
-    desc: "Każdy ogród projektujemy indywidualnie, dopasowując go do charakteru Twojej posiadłości.",
-    img: gallery1,
-  },
-  {
-    title: ["Pielęgnacja", "i utrzymanie", "przez cały rok"],
-    desc: "Nie kończymy na realizacji — dbamy o zieleń długoterminowo, w każdym sezonie.",
-    img: gallery2,
-  },
-];
+const AUTO_SLIDE_DELAY = 6000;
 
 export default function Hero() {
-  const [index, setIndex] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(
-      () => setIndex((prevIndex) => (prevIndex + 1) % slides.length),
-      6000,
-    );
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, AUTO_SLIDE_DELAY);
+
     return () => clearInterval(interval);
   }, []);
 
-  const slide = slides[index];
+  const slide = slides[currentSlide];
 
   return (
     <section
@@ -43,31 +25,34 @@ export default function Hero() {
           "repeating-linear-gradient(90deg, var(--color-cream) 0px, var(--color-cream) 90px, var(--color-stripe) 90px, var(--color-stripe) 180px)",
       }}
     >
-      <div className="grid md:grid-cols-2 items-center min-h-125 lg:min-h-184.25">
-        <div className="w-full max-w-149.75 pl-6 md:pl-14   relative z-10">
+      <div className="grid min-h-125 items-center md:grid-cols-2 lg:min-h-184.25">
+        <div className="relative z-10 w-full max-w-149.75 pl-6 md:pl-14">
           <AnimatePresence mode="wait">
             <motion.div
-              key={index}
+              key={currentSlide}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.5 }}
             >
-              <h1 className="font-sans font-medium text-[32px]/[38px] sm:text-[44px]/[50px] md:text-[60px]/[70px] mb-6 md:mb-11">
+              <h1 className="mb-6 font-sans text-[32px]/[38px] font-medium sm:text-[44px]/[50px] md:mb-11 md:text-[60px]/[70px]">
                 {slide.title.map((line) => (
                   <span key={line} className="block">
                     {line}
                   </span>
                 ))}
               </h1>
-              <p className="mt-6 lg:mt-11 text-ink/70 text-sm sm:text-base leading-relaxed max-w-[480px]">
+
+              <p className="mt-6 max-w-120 text-sm leading-relaxed text-ink/70 sm:text-base lg:mt-11">
                 {slide.desc}
               </p>
-              <div className="mt-8 lg:mt-18 flex flex-wrap gap-4">
-                <button className="bg-forest text-white px-5.5 py-3 rounded-full text-base hover:bg-forest-light transition-colors">
+
+              <div className="mt-8 flex flex-wrap gap-4 lg:mt-18">
+                <button className="rounded-full bg-forest px-5.5 py-3 text-base text-white transition-colors hover:bg-forest-light">
                   Skontaktuj się z nami
                 </button>
-                <button className="flex items-center gap-2 px-5.5 py-3 rounded-full text-base border border-forest text-forest hover:bg-forest hover:text-white transition-colors">
+
+                <button className="flex items-center gap-2 rounded-full border border-forest px-5.5 py-3 text-base text-forest transition-colors hover:bg-forest hover:text-white">
                   Zobacz nasze realizacje
                   <span>↓</span>
                 </button>
@@ -76,18 +61,17 @@ export default function Hero() {
           </AnimatePresence>
         </div>
 
-        <div className="relative h-full min-h-80 md:min-h-125 lg:min-h-184.25 w-full overflow-hidden">
+        <div className="relative h-full min-h-80 w-full overflow-hidden md:min-h-125 lg:min-h-184.25">
           <AnimatePresence mode="wait">
             <motion.img
-              key={index}
+              key={currentSlide}
               src={slide.img}
               alt="Aranżacja ogrodu"
               initial={{ opacity: 0, scale: 1.05 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
-              className="absolute inset-0 w-full h-full object-cover"
-              onError={(e) => (e.target.style.display = "none")}
+              className="absolute inset-0 h-full w-full object-cover"
             />
           </AnimatePresence>
         </div>

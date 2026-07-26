@@ -21,3 +21,13 @@ body {
   background-color: var(--color-cream);
   color: var(--color-ink);
 }
+
+.hero-background {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--color-cream) 0px,
+    var(--color-cream) 90px,
+    var(--color-stripe) 90px,
+    var(--color-stripe) 180px
+  );
+}

@@ -4,11 +4,12 @@ import vector from "../assets/Vector.png";
 
 export default function PassionBanner() {
   return (
-    <section className="relative w-full overflow-hidden bg-forest">
-      
-      <div className="grid md:grid-cols-2 items-stretch min-h-[420px]">
-        
-        <div className="relative w-full min-h-[320px] md:min-h-full overflow-hidden order-2 md:order-1">
+    <section
+      id="o-firmie"
+      className="relative w-full overflow-hidden bg-forest"
+    >
+      <div className="grid md:grid-cols-2 items-stretch min-h-105">
+        <div className="relative w-full min-h-80 md:min-h-full overflow-hidden order-2 md:order-1">
           <img
             src={gallery1}
             alt="Realizacja ogrodu"
@@ -16,7 +17,6 @@ export default function PassionBanner() {
           />
         </div>
 
-     
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
