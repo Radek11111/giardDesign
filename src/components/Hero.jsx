@@ -1,21 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { slides } from "../data/hero"
+import { slides } from "../data/hero";
+import arrowLeft from "../assets/icons/arrowLeft.png";
+import arrowRight from "../assets/icons/arrowRight.png";
 
 const AUTO_SLIDE_DELAY = 6000;
 
 export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const timeoutRef = useRef(null);
+
   useEffect(() => {
-    const interval = setInterval(() => {
+    timeoutRef.current = setTimeout(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
     }, AUTO_SLIDE_DELAY);
 
-    return () => clearInterval(interval);
-  }, []);
+    return () => clearTimeout(timeoutRef.current);
+  }, [currentSlide]);
 
   const slide = slides[currentSlide];
+
+  const nextSlide = () => {
+    clearTimeout(timeoutRef.current);
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+  const prevSlide = () => {
+    clearTimeout(timeoutRef.current);
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
 
   return (
     <section
@@ -43,11 +56,11 @@ export default function Hero() {
                 ))}
               </h1>
 
-              <p className="mt-6 max-w-120 text-sm leading-relaxed text-ink/70 sm:text-base lg:mt-11">
+              <p className="mt-6  max-w-120 text-sm leading-relaxed text-ink/70 sm:text-base lg:mt-11">
                 {slide.desc}
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-4 lg:mt-18">
+              <div className="mt-8 mb-12 flex flex-wrap gap-4 lg:mt-18">
                 <button className="rounded-full bg-forest px-5.5 py-3 text-base text-white transition-colors hover:bg-forest-light">
                   Skontaktuj się z nami
                 </button>
@@ -74,6 +87,25 @@ export default function Hero() {
               className="absolute inset-0 h-full w-full object-cover"
             />
           </AnimatePresence>
+          <div className="absolute bottom-0 right-0 flex h-16 w-32 gap-4 md:h-20 md:w-40 md:gap-6 lg:h-24 lg:w-48 lg:gap-8 items-center justify-center bg-offer px-8 ">
+            <button
+              type="button"
+              onClick={prevSlide}
+              className="transition-transform duration-200 hover:scale-110 active:scale-95"
+              aria-label="Poprzedni slajd"
+            >
+              <img src={arrowLeft} alt="" className="" />
+            </button>
+
+            <button
+              type="button"
+              onClick={nextSlide}
+              className="transition-transform duration-200 hover:scale-110 active:scale-95"
+              aria-label="Następny slajd"
+            >
+              <img src={arrowRight} alt="" className="" />
+            </button>
+          </div>
         </div>
       </div>
     </section>
